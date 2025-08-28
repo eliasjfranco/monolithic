@@ -2,6 +2,7 @@ package com.mock.monolithic.company.controller;
 
 import com.mock.monolithic.company.dto.LoginRequest;
 import com.mock.monolithic.company.service.AuthenticationService;
+import com.mock.security.utils.SecurityUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AuthController {
     @GetMapping("/test-admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> test2() {
-        log.info("ADMIN");
+        log.info("profile: ADMIN - tenantId: {} - user: {}", SecurityUtils.getCurrentTenantId(), SecurityUtils.getCurrentUsername());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
