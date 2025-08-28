@@ -60,8 +60,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new UserNotFoundException();
     }
 
-    private void isCredentialsMatched(final String password, final String password2) {
-        if (!encoder.matches(password, password2))
+    private void isCredentialsMatched(final String password, final String encoded) {
+        if (!encoder.matches(password, encoded))
             throw new BadCredentialsException("Username or password incorrect.");
     }
 }
