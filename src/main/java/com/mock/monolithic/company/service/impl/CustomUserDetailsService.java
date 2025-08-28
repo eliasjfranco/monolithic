@@ -37,12 +37,9 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new CompanyDisabledException();
 
         User user = company.getUser().stream()
-                .filter(u -> u.getEmail().equals(username))
+                .filter(u -> u.getEmail().equals(username) && u.getEnabled().equals(Boolean.TRUE))
                 .findAny()
                 .orElseThrow(UserNotFoundException::new);
-
-        if (user.getEnabled().equals(Boolean.FALSE))
-            throw new UserNotFoundException();
 
         final List<SimpleGrantedAuthority> role = Arrays.asList(new SimpleGrantedAuthority(jwtProps.getRolePrefix() + user.getRole()));
 
